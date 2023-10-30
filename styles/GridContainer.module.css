@@ -1,0 +1,43 @@
+@font-face {
+    font-family: 'Get Schwifty';
+    src: url('/_next/fonts/get_schwifty.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.name_item{
+    font-size: max(min(16px, 4vw), 22px) !important;
+    color: #fff;
+    text-shadow: 0 0 3px #000, 2px 2px 7px #1ac904, -2px -2px 7px #009422;
+    margin-bottom: 0.5em;
+    margin-top: 5px;
+    /* font-family: 'Get Schwifty'; */
+}
+
+.img{
+    border-radius: 3%;
+    display: block;
+    margin: auto;
+}
+
+.description{
+    text-align: left;
+}
+
+.filter{
+    display: flex;
+    margin-top: 15px;
+}
+
+.filter input{
+    margin-left: 5px;
+    border-radius: 5px;
+    padding: 12px;
+}
+
+/* .filter button{
+    margin-left: 5px;
+    border-radius: 6px;
+} */
+
