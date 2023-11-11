@@ -3,6 +3,7 @@ import gridStyles from '../styles/GridContainer.module.css';
 import styles from '../styles/Home.module.css';
 import Filter from './filter';
 import React from 'react';
+import Pagination from './pagination';
 
 const GET_DATA = gql`
   query {
@@ -47,11 +48,12 @@ export default function GridContainer(){
     return (
       <React.Fragment>
         <Filter />
+        <Pagination currentSize={data.characters.results.length} totalSize={data.characters.info.count} currentPage="1" totalPages={data.characters.info.pages} />
         <div className={styles.grid}>
           {data.characters.results.map((data, i) => {
 
             return (
-              <a href="https://nextjs.org/docs" className={styles.card} key={data.id}>
+              <a href="#" className={styles.card} key={data.id}>
                 <img className={gridStyles.img} src={data.image}></img>
                 <h3 className={gridStyles.name_item}>{data.name} </h3>
                 <div className={gridStyles.description}>
@@ -59,15 +61,13 @@ export default function GridContainer(){
                   <p><b>Gender:</b> {data.gender}</p>
                   <p><b>Status:</b> {data.status}</p>
                   <p><b>Type:</b> {data.type}</p>
-                  {/* <p>Location: {data.location.name}</p> */}
                   <p><b>Episodes:</b> {data.episode.length}</p>
                 </div>
               </a>
             )
           })}
-
-            
         </div>
+        <Pagination currentSize={data.characters.results.length} totalSize={data.characters.info.count} currentPage="1" totalPages={data.characters.info.pages} />
       </React.Fragment>
     );
 }

@@ -6,6 +6,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url("/espacio3.jpg");
+    background-position: top;
+    background-repeat: repeat;
+    background-size: 85% auto;
 }
 
 .title a {
@@ -23,7 +27,6 @@
   margin: 0 0 1rem;
   line-height: 1.15;
   font-size: 3.6rem;
-  
 }
 
 .title {
@@ -48,7 +51,7 @@
   flex-wrap: wrap;
 
   /* max-width: 1900px; */
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .card {
@@ -96,10 +99,7 @@
 
 .main_background {
   position: relative;
-    background-image: url("/espacio3.jpg");
-    background-position: top;
-    background-repeat: repeat;
-    background-size: 85% auto;
+    
 }
 
 @media (max-width: 600px) {
