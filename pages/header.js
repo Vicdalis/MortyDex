@@ -1,9 +1,9 @@
 
 export default function Header(props) {
     return(
-        <div>
+        <div className="m-1">
             <h1 className={props.styles.title}>
-                Bienvenido a <span className="text-lime-200">MortyDex</span>
+                Welcome to <span className="text-lime-300">MortyDex</span>
             </h1>
 
             <p className={props.styles.description}>

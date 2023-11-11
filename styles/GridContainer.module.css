@@ -22,13 +22,11 @@
     margin: auto;
 }
 
-.description{
-    text-align: left;
-}
-
 .filter{
     display: flex;
     margin-top: 28px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .text_wrap input {

@@ -56,11 +56,11 @@ export default function GridContainer(){
               <a href="#" className={styles.card} key={data.id}>
                 <img className={gridStyles.img} src={data.image}></img>
                 <h3 className={gridStyles.name_item}>{data.name} </h3>
-                <div className={gridStyles.description}>
+                <div className="text-left">
                   <p><b>Species:</b> {data.species}</p>
                   <p><b>Gender:</b> {data.gender}</p>
                   <p><b>Status:</b> {data.status}</p>
-                  <p><b>Type:</b> {data.type}</p>
+                  <p><b>Type:</b> {data.type == '' ? 'No Type' : data.type} </p>
                   <p><b>Episodes:</b> {data.episode.length}</p>
                 </div>
               </a>
