@@ -1,36 +1,10 @@
-import { gql, useQuery, useMutation  } from '@apollo/client';
+import { useQuery  } from '@apollo/client';
+import { GET_CHARACTERS } from './queries';
 import gridStyles from '../styles/GridContainer.module.css';
 import styles from '../styles/Home.module.css';
 import Filter from './filter';
 import React, { useState } from 'react';
 import Pagination from './pagination';
-
-const GET_CHARACTERS = gql`
-  query Characters($page: Int!, $status: String, $type: String, $gender: String, $name: String, $specie: String){
-    characters(page: $page, filter: { status: $status, type: $type, gender: $gender, name: $name, species: $specie }) {
-      info {
-        count
-        pages
-      }
-      results {
-        id
-        name
-        species 
-        image
-        gender
-        status
-        type
-        location {
-          id
-          name
-        }
-        episode {
-          name
-        }
-      }
-    }
-  }
-`;
 
 export default function GridContainer(){
     const [page, setPage] = useState(1);

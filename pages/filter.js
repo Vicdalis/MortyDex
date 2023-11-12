@@ -1,10 +1,9 @@
 
 import gridStyles from "../styles/GridContainer.module.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Select from 'react-select';
-import { global } from 'styled-jsx/css';
 import { useState } from "react";
+import { useQuery  } from '@apollo/client';
+import { GET_LOCATIONS } from './queries';
 
 export default function Filter(props){
     const [isLoading, setIsLoading] = useState({
@@ -24,8 +23,31 @@ export default function Filter(props){
         {value: 'unknown', label: 'Unknown'},
     ]);
     const [locationOptions, setLocationOptions] = useState([]);
-
+    
     let timeoutId;
+
+    const {loading, error, data} = useQuery(GET_LOCATIONS, {
+        skip: !isLoading.location, 
+        variables: { page: 1 }
+    });
+
+    console.log("DATA LOCATIONS?? ", data);
+
+    if(error){
+        console.log("ERROR LOCATIONS ", error);
+    }
+
+    if(data){
+        console.log("🚀 ~ file: filter.js:127 ~ Filter ~ data:", data)
+        let newOptions = data.locations.results.map(x => {
+            return {
+                label: x.name,
+                value: x.id
+            }
+        })
+        setLocationOptions(newOptions)
+        setIsLoading({...isLoading, location: false});
+    }
 
     return (
         <div className={gridStyles.filter}>
@@ -104,14 +126,16 @@ export default function Filter(props){
                 <Select
                     className="focus:border-lime-500 rounded focus:outline-none mx-2 w-40 m-1.5"
                     isLoading={isLoading.location}
-                    defaultValue={'1'}
                     isClearable={true}
                     isSearchable={true}
                     placeholder="Location..."
                     options={locationOptions}
-                    onFocus={(e) => {
-                        setIsLoading({...isLoading, location: true});
-                        
+                    defaultValue={props.location}
+                    onFocus={() => {
+                        console.log("LOCATION ", props.location, " OPTIONS ", locationOptions.length)
+                        if(props.location == "" && locationOptions.length == 0){
+                            setIsLoading({...isLoading, location: true});
+                        }
                     }}
                     onChange={(e) => { console.log("Location CHANGED ",e)}}
                 />
