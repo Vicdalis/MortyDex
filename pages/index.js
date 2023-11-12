@@ -18,7 +18,6 @@ export default function Home() {
   
   return (
     <ApolloProvider client={client}>
-      {/* <MyApp> */}
         <div className={styles.container}>
           <Head>
             <title>MortyDex</title>
@@ -108,7 +107,6 @@ export default function Home() {
             }
           `}</style>
         </div>
-      {/* </MyApp> */}
     </ApolloProvider>
   );
 }

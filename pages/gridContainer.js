@@ -1,13 +1,13 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation  } from '@apollo/client';
 import gridStyles from '../styles/GridContainer.module.css';
 import styles from '../styles/Home.module.css';
 import Filter from './filter';
-import React from 'react';
+import React, { useState } from 'react';
 import Pagination from './pagination';
 
-const GET_DATA = gql`
-  query {
-    characters(page: 1, ) {
+const GET_CHARACTERS = gql`
+  query Characters($page: Int!, $status: String, $type: String, $gender: String, $name: String, $specie: String){
+    characters(page: $page, filter: { status: $status, type: $type, gender: $gender, name: $name, species: $specie }) {
       info {
         count
         pages
@@ -33,7 +33,48 @@ const GET_DATA = gql`
 `;
 
 export default function GridContainer(){
-    const { loading, error, data } = useQuery(GET_DATA);
+    const [page, setPage] = useState(1);
+    const [name, setName] = useState("");
+    const [status, setStatus] = useState("");
+    const [gender, setGender] = useState("");
+    const [specie, setSpecie] = useState("");
+    const [type, setType] = useState("");
+    const [location, setLocation] = useState("");
+
+    const {loading, error, data, refetch} = useQuery(GET_CHARACTERS, {
+      variables: { page: 1 }
+    });
+    
+    const filters = {
+      status: status,
+      setStatus: setStatus,
+      gender: gender,
+      setGender: setGender,
+      name: name,
+      setName: setName,
+      specie: specie,
+      setSpecie: setSpecie,
+      type: type,
+      setType: setType,
+      location: location,
+      setLocation: setLocation,
+      reloadQuery: (newname = name, newStatus = status, newGender = gender, newType = type, newSpecie = specie) => {
+        setPage(1);
+        refetch({ page: page, name: newname, status: newStatus, gender: newGender, type: newType, specie: newSpecie })
+      }
+    };
+
+    const pagination = {
+      currentSize: data?.characters.results.length,
+      totalSize: data?.characters.info.count,
+      currentPage: page,
+      setPage: setPage,
+      totalPages: data?.characters.info.pages,
+      reloadQuery: (newPage) => {
+        refetch({ page: newPage })
+      }
+    }
+    
 
     if (loading) {
         return <p>Loading...</p>;
@@ -43,12 +84,12 @@ export default function GridContainer(){
         return <p>Error: {error.message}</p>;
     }
 
-    console.log("DATA ENCONTRADA?? ", data)
+    console.log("DATA ENCONTRADA?? ", data);
 
     return (
-      <React.Fragment>
-        <Filter />
-        <Pagination currentSize={data.characters.results.length} totalSize={data.characters.info.count} currentPage="1" totalPages={data.characters.info.pages} />
+      <React.Fragment>  
+        <Filter {...filters} />
+        <Pagination {...pagination} />
         <div className={styles.grid}>
           {data.characters.results.map((data, i) => {
 
@@ -67,7 +108,7 @@ export default function GridContainer(){
             )
           })}
         </div>
-        <Pagination currentSize={data.characters.results.length} totalSize={data.characters.info.count} currentPage="1" totalPages={data.characters.info.pages} />
+        <Pagination {...pagination} />
       </React.Fragment>
     );
 }
