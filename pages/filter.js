@@ -1,15 +1,15 @@
 
 import gridStyles from "../styles/GridContainer.module.css";
 import Select from 'react-select';
-import { useState } from "react";
-import { useQuery  } from '@apollo/client';
+import { useEffect, useState } from "react";
+import { useQuery, NetworkStatus  } from '@apollo/client';
 import { GET_LOCATIONS } from './queries';
 
 export default function Filter(props){
     const [isLoading, setIsLoading] = useState({
             status: false,
             gender: false,
-            location: false
+            location: true
     });
     const [statusOptions] = useState([
         {value: 'alive', label: 'Alive'},
@@ -22,32 +22,35 @@ export default function Filter(props){
         {value: 'genderless', label: 'Genderless'},
         {value: 'unknown', label: 'Unknown'},
     ]);
-    const [locationOptions, setLocationOptions] = useState([]);
+    // const [locationOptions, setLocationOptions] = useState([]);
+    // const [searchedText, setSearchedText] = useState();
     
     let timeoutId;
 
-    const {loading, error, data} = useQuery(GET_LOCATIONS, {
-        skip: !isLoading.location, 
-        variables: { page: 1 }
-    });
+    // const {loading, error, data, refetch } = useQuery(GET_LOCATIONS, {
+    //     // skip: !isLoading.location, 
+    //     variables: { page: 1 },
+    //     notifyOnNetworkStatusChange: true,
+    //     onCompleted(completado) {
+    //         if(isLoading.location){
+    //             console.log("🚀 ~ file: filter.js:34 ~ onCompleted ~ completado:", completado)
+    //             let newOptions = completado.locations.results.map(x => {
+    //                 return {
+    //                     label: x.name,
+    //                     value: x.id
+    //                 }
+    //             })
+    //             setLocationOptions(newOptions)
+    //             setIsLoading({...isLoading, location: false});
+    //         }
+    //     }
+    
+    // });
 
-    console.log("DATA LOCATIONS?? ", data);
+    // if(error){
+    //     console.log("ERROR LOCATIONS ", error);
+    // }
 
-    if(error){
-        console.log("ERROR LOCATIONS ", error);
-    }
-
-    if(data){
-        console.log("🚀 ~ file: filter.js:127 ~ Filter ~ data:", data)
-        let newOptions = data.locations.results.map(x => {
-            return {
-                label: x.name,
-                value: x.id
-            }
-        })
-        setLocationOptions(newOptions)
-        setIsLoading({...isLoading, location: false});
-    }
 
     return (
         <div className={gridStyles.filter}>
@@ -59,7 +62,7 @@ export default function Filter(props){
                             console.log("NAME CHANGED ",e)
                             props.setName(e.target.value)
                             props.reloadQuery(e.target.value);
-                        }, 1000)
+                        }, 800)
                     }}
                 ></input>
             </div>
@@ -88,7 +91,7 @@ export default function Filter(props){
                             console.log("Specie ", e);
                             props.setSpecie(e.target.value)
                             props.reloadQuery(undefined,undefined,undefined,undefined, e.target.value);
-                        }, 1000)
+                        }, 800)
                     }}
                 ></input>
             </div>
@@ -101,7 +104,7 @@ export default function Filter(props){
                             console.log("Type ", e);
                             props.setType(e.target.value)
                             props.reloadQuery(undefined,undefined,undefined,e.target.value);
-                        }, 1000)
+                        }, 800)
                     }}
                 ></input>
             </div>
@@ -122,7 +125,7 @@ export default function Filter(props){
                     }}
                 />
             </div>
-            <div className={gridStyles.select_wrap}>
+            {/* <div className={gridStyles.select_wrap}>
                 <Select
                     className="focus:border-lime-500 rounded focus:outline-none mx-2 w-40 m-1.5"
                     isLoading={isLoading.location}
@@ -130,16 +133,24 @@ export default function Filter(props){
                     isSearchable={true}
                     placeholder="Location..."
                     options={locationOptions}
-                    defaultValue={props.location}
-                    onFocus={() => {
-                        console.log("LOCATION ", props.location, " OPTIONS ", locationOptions.length)
-                        if(props.location == "" && locationOptions.length == 0){
-                            setIsLoading({...isLoading, location: true});
+                    defaultValue={props.location.toString()}
+                    onInputChange={(e) =>{
+                        if(e !== searchedText){
+                            console.log("INPUT CHANGED?? ", e);
+                            clearTimeout(timeoutId);
+                            timeoutId = setTimeout(() => {
+                                setIsLoading({...isLoading, location: true});
+                                refetch({page: 1, name: e})
+                                setSearchedText(e);
+                            }, 600)
                         }
                     }}
-                    onChange={(e) => { console.log("Location CHANGED ",e)}}
+                    onChange={(e) => {
+                        console.log("CAMBIE LOCATION ", e);
+                        props.setLocation(parseInt(e.value))
+                    }}
                 />
-            </div>
+            </div> */}
             {/* <button type="submit" class="flex mx-2 items-center justify-center rounded-md border border-transparent bg-emerald-600 px-8 py-3 text-white hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"> <FontAwesomeIcon icon={faMagnifyingGlass} /></button> */}
         </div>
     );

@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export const GET_CHARACTERS = gql`
   query GetCharacters($page: Int!, $status: String, $type: String, $gender: String, $name: String, $specie: String){
-    characters(page: $page, filter: { status: $status, type: $type, gender: $gender, name: $name, species: $specie }) {
+    characters(page: $page, filter: { status: $status, type: $type, gender: $gender, name: $name, species: $specie}) {
       info {
         count
         pages
@@ -25,6 +25,27 @@ export const GET_CHARACTERS = gql`
       }
     }
   }
+`;
+
+export const GET_CHARACTER = gql`
+query {
+  character(ids: [1,2]) {
+      id
+      name
+      species 
+      image
+      gender
+      status
+      type
+      location {
+        id
+        name
+      }
+      episode {
+        name
+      }
+    }
+}
 `;
 
 export const GET_LOCATIONS = gql`

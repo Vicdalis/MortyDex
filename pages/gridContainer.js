@@ -5,6 +5,8 @@ import styles from '../styles/Home.module.css';
 import Filter from './filter';
 import React, { useState } from 'react';
 import Pagination from './pagination';
+import loadingLogo from '../assets/loader.gif';
+import Image from 'next/image';
 
 export default function GridContainer(){
     const [page, setPage] = useState(1);
@@ -13,7 +15,7 @@ export default function GridContainer(){
     const [gender, setGender] = useState("");
     const [specie, setSpecie] = useState("");
     const [type, setType] = useState("");
-    const [location, setLocation] = useState("");
+    const [characters, setCharacters] = useState();
 
     const {loading, error, data, refetch} = useQuery(GET_CHARACTERS, {
       variables: { page: 1 }
@@ -30,11 +32,11 @@ export default function GridContainer(){
       setSpecie: setSpecie,
       type: type,
       setType: setType,
-      location: location,
-      setLocation: setLocation,
+      characters,
+      setCharacters,
       reloadQuery: (newname = name, newStatus = status, newGender = gender, newType = type, newSpecie = specie) => {
         setPage(1);
-        refetch({ page: page, name: newname, status: newStatus, gender: newGender, type: newType, specie: newSpecie })
+        refetch({ page: page, name: newname, status: newStatus, gender: newGender, type: newType, specie: newSpecie})
       }
     };
 
@@ -51,11 +53,14 @@ export default function GridContainer(){
     
 
     if (loading) {
-        return <p>Loading...</p>;
+      return <div>
+        <Image src={loadingLogo} alt="loading..." height={200} />
+        <p className='text-white text-center'>Loading...</p>
+      </div>;
     }
 
     if (error) {
-        return <p>Error: {error.message}</p>;
+        return <p className='text-red-400 text-center mt-6'>Error: {error.message}</p>;
     }
 
     console.log("DATA ENCONTRADA?? ", data);
