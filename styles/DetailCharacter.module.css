@@ -1,0 +1,6 @@
+.imageContainer{
+    box-shadow: 0 0 10px #93dd02, inset 0 0 10px #93dd02;
+    border-radius: 50%;
+    border: 1px solid #eaeaea;
+    padding: 12px;
+}

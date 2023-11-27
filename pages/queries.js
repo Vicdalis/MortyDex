@@ -28,8 +28,8 @@ export const GET_CHARACTERS = gql`
 `;
 
 export const GET_CHARACTER = gql`
-query {
-  character(ids: [1,2]) {
+query GetDetailCharacter($id: ID!){
+  character(id: $id) {
       id
       name
       species 
@@ -37,11 +37,16 @@ query {
       gender
       status
       type
+      origin {
+        id
+        name
+      }
       location {
         id
         name
       }
       episode {
+        id
         name
       }
     }

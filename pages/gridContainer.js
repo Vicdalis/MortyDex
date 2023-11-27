@@ -1,12 +1,13 @@
 import { useQuery  } from '@apollo/client';
 import { GET_CHARACTERS } from './queries';
 import gridStyles from '../styles/GridContainer.module.css';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Style.module.css';
 import Filter from './filter';
 import React, { useState } from 'react';
 import Pagination from './pagination';
-import loadingLogo from '../assets/loader.gif';
-import Image from 'next/image';
+import Loader from './loading';
+
+import Link from 'next/link';
 
 export default function GridContainer(){
     const [page, setPage] = useState(1);
@@ -53,10 +54,7 @@ export default function GridContainer(){
     
 
     if (loading) {
-      return <div>
-        <Image src={loadingLogo} alt="loading..." height={200} />
-        <p className='text-white text-center'>Loading...</p>
-      </div>;
+      return <Loader />;
     }
 
     if (error) {
@@ -73,7 +71,7 @@ export default function GridContainer(){
           {data.characters.results.map((data, i) => {
 
             return (
-              <a href="#" className={styles.card} key={data.id}>
+              <Link href={{ pathname: '/characterDetails/[id]', query: {id: data.id} }} className={styles.card} key={data.id}>
                 <img className={gridStyles.img} src={data.image}></img>
                 <h3 className={gridStyles.name_item}>{data.name} </h3>
                 <div className="text-left">
@@ -83,7 +81,7 @@ export default function GridContainer(){
                   <p><b>Type:</b> {data.type == '' ? 'No Type' : data.type} </p>
                   <p><b>Episodes:</b> {data.episode.length}</p>
                 </div>
-              </a>
+              </Link>
             )
           })}
         </div>
