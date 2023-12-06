@@ -23,11 +23,15 @@ export default function ContentDetail(props){
         <React.Fragment>
             {
                 data?.character ?
-                <div>
+                <div className='mt-8'>
                     <div className={detailStyles.imageContainer}>
-                        <img className='rounded-full ' src={data.character.image}></img>
+                        <img className='rounded-full w-96' src={data.character.image}></img>
                     </div>
-                    <h3 className='text-white text-center font-bold text-2xl py-2'>{data.character.name} </h3>
+                    <h3 className={detailStyles.name_item}>{data.character.name} </h3>
+                    <div className='flex text-center justify-center'>
+                        <p className='text-lime-200 font-bold text-xl mr-2'>Status: </p>
+                        <p className='text-white font-bold text-xl'>{data.character.status}</p>
+                    </div>
                 </div>
                 :
                 <p className='text-white text-center font-bold text-2xl py-2'> No Character found</p>
