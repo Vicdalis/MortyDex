@@ -3,6 +3,9 @@
     border-radius: 50%;
     border: 1px solid #eaeaea;
     padding: 12px;
+    max-width: 24rem;
+    display: inline-block;
+    text-align: center;
 }
 
 .name_item{
@@ -15,3 +18,27 @@
     padding: 10px;
     text-align: center;
 }
+
+.card_focus {
+    margin: 1rem;
+    flex-basis: 20%;
+    padding: 1.1rem;
+    text-align: center;
+    color: #009422;
+    text-decoration: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+    box-shadow: 0 0 10px #93dd02, inset 0 0 10px #93dd02;
+    background-color: #54831754;
+  }
+  
+  .card:hover,
+  .card:focus,
+  .card:active {
+    color: #009422;
+    background-color: #54831754;
+    /* border-color: #009422; */
+  }
