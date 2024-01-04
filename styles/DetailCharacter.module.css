@@ -6,6 +6,8 @@
     max-width: 24rem;
     display: inline-block;
     text-align: center;
+    color: inherit;
+    background-color: #8ffa795c;
 }
 
 .name_item{
@@ -21,7 +23,7 @@
 
 .card_focus {
     margin: 1rem;
-    flex-basis: 20%;
+    flex-basis: 50%;
     padding: 1.1rem;
     text-align: center;
     color: #009422;
@@ -33,6 +35,8 @@
       border-color 0.15s ease;
     box-shadow: 0 0 10px #93dd02, inset 0 0 10px #93dd02;
     background-color: #54831754;
+    /* display: flex; */
+    /* width: 100%; */
   }
   
   .card:hover,

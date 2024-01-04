@@ -24,50 +24,53 @@ export default function ContentDetail(props){
         <React.Fragment>
             {
                 data?.character ?
-                <div className='mt-8  grid grid-cols-3 gap-4 w-full'>
-                    <div className='ml-20'>
-                        <div className={detailStyles.card_focus}>
-                            <div className='flex'>
-                                <p className='text-lime-200 font-bold text-xl mr-2'>Species:</p>
-                                <p className='text-white font-bold text-xl'>{data.character.species}</p>
+                <div className='mt-8  grid grid-cols-3 gap-2 w-full'>
+                    <div className='flex col-span-2 w-full'>
+                        
+                            <div className='w-2/4 ml-24 m-y-16 mt-24'>
+                            {/* <div className={detailStyles.card_focus} > */}
+                                <div className='flex'>
+                                    <p className='text-lime-200 font-bold text-xl mr-2'>Species:</p>
+                                    <p className='text-white font-bold text-xl'>{data.character.species}</p>
+                                </div>
+                                <div className='flex '>
+                                    <p className='text-lime-200 font-bold text-xl mr-2'>Type: </p>
+                                    <p className='text-white font-bold text-xl'>{data.character.type}</p>
+                                </div>
+                                <div className='flex '>
+                                    <p className='text-lime-200 font-bold text-xl mr-2'>Gender: </p>
+                                    <p className='text-white font-bold text-xl'>{data.character.gender}</p>
+                                </div>
+                                <div className='flex '>
+                                    <p className='text-lime-200 font-bold text-xl mr-2'>Origin: </p>
+                                    <p className='text-white font-bold text-xl'>{data.character.origin.name}</p>
+                                </div>
+                                <div className='flex '>
+                                    <p className='text-lime-200 font-bold text-xl mr-2'>Location: </p>
+                                    <p className='text-white font-bold text-xl'>{data.character.location.name}</p>
+                                </div>
                             </div>
-                            <div className='flex '>
-                                <p className='text-lime-200 font-bold text-xl mr-2'>Type: </p>
-                                <p className='text-white font-bold text-xl'>{data.character.type}</p>
+                            <div className='text-center justify-center w-2/4'>
+                                <div className={detailStyles.imageContainer}>
+                                    <img className='rounded-full w-96' src={data.character.image}></img>
+                                </div>
+                                <h3 className={detailStyles.name_item}>{data.character.name} </h3>
+                                <div className='flex text-center justify-center'>
+                                    <p className='text-lime-200 font-bold text-xl mr-2'>Status: </p>
+                                    <p className='text-white font-bold text-xl'>{data.character.status}</p>
+                                </div>
                             </div>
-                            <div className='flex '>
-                                <p className='text-lime-200 font-bold text-xl mr-2'>Gender: </p>
-                                <p className='text-white font-bold text-xl'>{data.character.gender}</p>
-                            </div>
-                            <div className='flex '>
-                                <p className='text-lime-200 font-bold text-xl mr-2'>Origin: </p>
-                                <p className='text-white font-bold text-xl'>{data.character.origin.name}</p>
-                            </div>
-                            <div className='flex '>
-                                <p className='text-lime-200 font-bold text-xl mr-2'>Location: </p>
-                                <p className='text-white font-bold text-xl'>{data.character.location.name}</p>
-                            </div>
-                        </div>
                     </div>
-                    <div className='text-center justify-center'>
-                        <div className={detailStyles.imageContainer}>
-                            <img className='rounded-full w-96' src={data.character.image}></img>
-                        </div>
-                        <h3 className={detailStyles.name_item}>{data.character.name} </h3>
-                        <div className='flex text-center justify-center'>
-                            <p className='text-lime-200 font-bold text-xl mr-2'>Status: </p>
-                            <p className='text-white font-bold text-xl'>{data.character.status}</p>
-                        </div>
-                    </div>
-                    <div >
-                        <div className='ml-2'>
-                            <p className='text-lime-200 font-bold text-xl mr-2 text-center'>Featured Episodes: </p>
+                    <div className='ml-16'>
+                        <div className='ml-2 '>
+                            <p className='text-lime-200 font-bold text-xl mb-6'>Featured Episodes: </p>
                             {
                                 data?.character.episode && 
-                                <div>
-                                    {data?.character.episode.map(x => {
-                                        return <p className='text-white font-bold text-xl'>{x.name}</p>
+                                <div >
+                                    {data?.character.episode.slice(0, 15).map(x => {
+                                        return <p className='text-white font-bold text-xl my-1'>{x.name}</p>
                                     })}
+                                    {data?.character.episode?.length > 15 && <p className='text-lime-200 font-bold text-xl mt-4 cursor-pointer'>Ver Más...</p>}
                                 </div>
                             }
                         </div>
