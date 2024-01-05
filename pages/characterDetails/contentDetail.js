@@ -70,7 +70,7 @@ export default function ContentDetail(props){
                                     {data?.character.episode.slice(0, 15).map(x => {
                                         return (
                                             <Link href={{ pathname: '/episodeDetails/[id]', query: {id: x.id} }} key={x.id}>
-                                                <p className='text-white font-bold text-xl my-1'>{x.name} - {x.episode}</p>
+                                                <p className='text-white font-bold text-xl my-1 hover:text-lime-300'>{x.name} - {x.episode}</p>
                                             </Link>
                                         )
                                     })}

@@ -84,3 +84,18 @@ export const GET_EPISODE = gql`
     }
   }
 `;
+
+export const GET_ALL_EPISODES = gql`
+  query GetAllEpisodes($page: Int!, $name: String){
+    episodes(page: $page, filter: {name: $name}) {
+      info {
+            count
+            pages
+        }
+        results {
+            id
+            name
+        }
+    }
+  }
+`;
