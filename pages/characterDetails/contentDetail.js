@@ -3,7 +3,7 @@ import { GET_CHARACTER } from '../queries';
 import Loader from '../loading';
 import React from 'react';
 import detailStyles from '../../styles/DetailCharacter.module.css';
-import styles from '../../styles/Style.module.css';
+import Link from 'next/link';
 
 export default function ContentDetail(props){
     const {loading, error, data} = useQuery(GET_CHARACTER, {
@@ -31,7 +31,7 @@ export default function ContentDetail(props){
                             {/* <div className={detailStyles.card_focus} > */}
                                 <div className='flex'>
                                     <p className='text-lime-200 font-bold text-xl mr-2'>Species:</p>
-                                    <p className='text-white font-bold text-xl'>{data.character.species}</p>
+                                    <p className='text-white font-bold text-xl'>{data.character.species} </p>
                                 </div>
                                 <div className='flex '>
                                     <p className='text-lime-200 font-bold text-xl mr-2'>Type: </p>
@@ -68,7 +68,11 @@ export default function ContentDetail(props){
                                 data?.character.episode && 
                                 <div >
                                     {data?.character.episode.slice(0, 15).map(x => {
-                                        return <p className='text-white font-bold text-xl my-1'>{x.name}</p>
+                                        return (
+                                            <Link href={{ pathname: '/episodeDetails/[id]', query: {id: x.id} }} key={x.id}>
+                                                <p className='text-white font-bold text-xl my-1'>{x.name} - {x.episode}</p>
+                                            </Link>
+                                        )
                                     })}
                                     {data?.character.episode?.length > 15 && <p className='text-lime-200 font-bold text-xl mt-4 cursor-pointer'>Ver Más...</p>}
                                 </div>

@@ -1,15 +1,13 @@
 import { useQuery  } from '@apollo/client';
 import { GET_CHARACTERS } from './queries';
-import gridStyles from '../styles/GridContainer.module.css';
-import styles from '../styles/Style.module.css';
 import Filter from './filter';
 import React, { useState } from 'react';
 import Pagination from './pagination';
 import Loader from './loading';
+import CardCharacter from './cardCharacter';
 
-import Link from 'next/link';
 
-export default function GridContainer(){
+export default function GridContainer(props){
     const [page, setPage] = useState(1);
     const [name, setName] = useState("");
     const [status, setStatus] = useState("");
@@ -35,6 +33,7 @@ export default function GridContainer(){
       setType: setType,
       characters,
       setCharacters,
+      showEpisodes: props.showEpisodes,
       reloadQuery: (newname = name, newStatus = status, newGender = gender, newType = type, newSpecie = specie) => {
         setPage(1);
         refetch({ page: page, name: newname, status: newStatus, gender: newGender, type: newType, specie: newSpecie})
@@ -67,24 +66,7 @@ export default function GridContainer(){
       <React.Fragment>  
         <Filter {...filters} />
         <Pagination {...pagination} />
-        <div className={styles.grid}>
-          {data.characters.results.map((data, i) => {
-
-            return (
-              <Link href={{ pathname: '/characterDetails/[id]', query: {id: data.id} }} className={styles.card} key={data.id}>
-                <img className={gridStyles.img} src={data.image}></img>
-                <h3 className={gridStyles.name_item}>{data.name} </h3>
-                <div className="text-left">
-                  <p><b>Species:</b> {data.species}</p>
-                  <p><b>Gender:</b> {data.gender}</p>
-                  <p><b>Status:</b> {data.status}</p>
-                  <p><b>Type:</b> {data.type == '' ? 'No Type' : data.type} </p>
-                  <p><b>Episodes:</b> {data.episode.length}</p>
-                </div>
-              </Link>
-            )
-          })}
-        </div>
+        <CardCharacter contentCharacter={true} characters={data.characters.results} />
         <Pagination {...pagination} />
       </React.Fragment>
     );

@@ -48,6 +48,7 @@ query GetDetailCharacter($id: ID!){
       episode {
         id
         name
+        episode
       }
     }
 }
@@ -63,6 +64,22 @@ export const GET_LOCATIONS = gql`
         results {
             id
             name
+        }
+    }
+  }
+`;
+
+export const GET_EPISODE = gql`
+  query GetDetailEpisode($id: ID!){
+    episode(id: $id) {
+        id
+        name
+        air_date 
+        episode
+        characters {
+          id
+          name
+          image
         }
     }
   }
