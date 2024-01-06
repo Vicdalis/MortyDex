@@ -23,11 +23,11 @@ export default function SelectListEpisodes(props) {
                 console.log("🚀 ~ file: filter.js:34 ~ onCompleted ~ completado:", completado)  
                 let newOptions = completado.episodes.results.map(x => {
                     return {
-                        label: x.name,
+                        label: x.name + ' - ' + x.episode,
                         value: x.id
                     }
                 })
-                newOptions = [...newOptions, ...episodeOptions];
+                newOptions = [...newOptions, {label: props.episodeName, id: props.episodeId}];
                 console.log("🚀 ~ file: selectListEpisodes.js:31 ~ onCompleted ~ newOptions:", newOptions)
 
                 setEpisodeOptions(newOptions)

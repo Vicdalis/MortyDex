@@ -29,7 +29,7 @@ export default function ContentEpisodeDetail(props){
                         <h2 className='text-white text-4xl mt-2 mb-2'>{data.episode.name} - {data.episode.episode}</h2>
                         <p className='text-lime-200 text-xl'>Air Date: <span className='text-white'>{data.episode.air_date}</span></p>
                         <p className='my-12 text-lime-300 text-2xl'> Characters ({data.episode.characters.length})</p>
-                        <SelectListEpisodes episodeName={data.episode.name} episodeId={data.episode.id} />
+                        <SelectListEpisodes episodeName={data.episode.name + ' - ' + data.episode.episode} episodeId={data.episode.id} />
                         <CardCharacter contentCharacter={false} characters={data.episode.characters} />
                     </React.Fragment>
                 )

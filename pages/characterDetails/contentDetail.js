@@ -33,9 +33,9 @@ export default function ContentDetail(props){
                                     <p className='text-lime-200 font-bold text-xl mr-2'>Species:</p>
                                     <p className='text-white font-bold text-xl'>{data.character.species} </p>
                                 </div>
-                                <div className='flex '>
+                                <div className='flex ' >
                                     <p className='text-lime-200 font-bold text-xl mr-2'>Type: </p>
-                                    <p className='text-white font-bold text-xl'>{data.character.type}</p>
+                                    <p className='text-white font-bold text-xl'>{data.character.type == '' ? 'No Type' : data.character.type}</p>
                                 </div>
                                 <div className='flex '>
                                     <p className='text-lime-200 font-bold text-xl mr-2'>Gender: </p>
@@ -63,7 +63,7 @@ export default function ContentDetail(props){
                     </div>
                     <div className='ml-16'>
                         <div className='ml-2 '>
-                            <p className='text-lime-200 font-bold text-xl mb-6'>Featured Episodes: </p>
+                            <p className='text-lime-200 font-bold text-xl mb-6'>Featured Episodes ({data?.character.episode ? data?.character.episode.length : 0}): </p>
                             {
                                 data?.character.episode && 
                                 <div >
@@ -74,7 +74,7 @@ export default function ContentDetail(props){
                                             </Link>
                                         )
                                     })}
-                                    {data?.character.episode?.length > 15 && <p className='text-lime-200 font-bold text-xl mt-4 cursor-pointer'>Ver Más...</p>}
+                                    {data?.character.episode?.length > 15 && <p className='text-lime-200 font-bold text-xl mt-4 cursor-pointer'>See More...</p>}
                                 </div>
                             }
                         </div>

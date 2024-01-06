@@ -95,6 +95,7 @@ export const GET_ALL_EPISODES = gql`
         results {
             id
             name
+            episode
         }
     }
   }
